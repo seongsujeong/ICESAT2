@@ -254,7 +254,7 @@ if __name__=='__main__':
     import_h5_4.py [hdf5 path] [npy path] [target EPSG] [number of workers]
     '''
     
-    if len(sys.argv)==4:
+    if len(sys.argv)==5:
         path_hdf5=sys.argv[1]
         path_import=sys.argv[2]
         epsg_out=int(sys.argv[3])
