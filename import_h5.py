@@ -206,7 +206,8 @@ def hdf5_to_npy(list_hdf5,path_npy,epsg_out=3031,part=0,npart=1):
                             list_z=hgt[flag_valid_obs]
                             list_z_sigma=hgt_sigma[flag_valid_obs]
                             list_t=t[flag_valid_obs]
-                            nparr_out=np.array([list_x,list_y,list_z,list_t,list_z_sigma,qs]).transpose()
+                            list_qs=qs[flag_valid_obs]
+                            nparr_out=np.array([list_x,list_y,list_z,list_t,list_z_sigma,list_qs]).transpose()
                             if len(list_x)!=0:
                                 xsub,ysub=subsample_xy(list_x,list_y,scale_inv=scale_gtrk_inv)
                                 feature = ogr.Feature(lyr.GetLayerDefn())
