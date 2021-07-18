@@ -191,6 +191,7 @@ def hdf5_to_npy(list_hdf5,path_npy,epsg_out=3031,part=0,npart=1):
                             lon=np.array(lis['longitude'])
                             hgt=np.array(lis['h_li'])
                             hgt_sigma=np.array(lis['h_li_sigma'])
+                            qs=np.array(lis['atl06_quality_summary'])
                             t=np.array(lis['delta_time'])
                             numobs=len(lon)
 
@@ -205,7 +206,7 @@ def hdf5_to_npy(list_hdf5,path_npy,epsg_out=3031,part=0,npart=1):
                             list_z=hgt[flag_valid_obs]
                             list_z_sigma=hgt_sigma[flag_valid_obs]
                             list_t=t[flag_valid_obs]
-                            nparr_out=np.array([list_x,list_y,list_z,list_t,list_z_sigma]).transpose()
+                            nparr_out=np.array([list_x,list_y,list_z,list_t,list_z_sigma,qs]).transpose()
                             if len(list_x)!=0:
                                 xsub,ysub=subsample_xy(list_x,list_y,scale_inv=scale_gtrk_inv)
                                 feature = ogr.Feature(lyr.GetLayerDefn())
