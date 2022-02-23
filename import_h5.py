@@ -14,7 +14,7 @@ import h5py
 import glob
 import numpy as np
 import datetime
-from numpy.lib.nanfunctions import _nanquantile_dispatcher
+#from numpy.lib.nanfunctions import _nanquantile_dispatcher
 #from pyproj import Proj, transform
 from pyproj import CRS, Transformer
 import os
@@ -193,8 +193,10 @@ def hdf5_to_npy(list_hdf5,path_npy,epsg_out=3031,part=0,npart=1):
                             hgt_sigma=np.array(lis['h_li_sigma'])
                             qs=np.array(lis['atl06_quality_summary'])
                             t=np.array(lis['delta_time'])
+                            geoid=np.array(lis['dem']['geoid_h'])
                             numobs=len(lon)
 
+                            #get rid of values that does not not sense (i.e. too low or too high elev.)
                             flag_valid_obs=(hgt<10000.0) & (hgt>-1000.0)
                             
                             #xmap,ymap=transform(inproj,outproj,lon,lat)
@@ -207,7 +209,8 @@ def hdf5_to_npy(list_hdf5,path_npy,epsg_out=3031,part=0,npart=1):
                             list_z_sigma=hgt_sigma[flag_valid_obs]
                             list_t=t[flag_valid_obs]
                             list_qs=qs[flag_valid_obs]
-                            nparr_out=np.array([list_x,list_y,list_z,list_t,list_z_sigma,list_qs]).transpose()
+                            list_geoid=geoid[flag_valid_obs]
+                            nparr_out=np.array([list_x,list_y,list_z,list_t,list_z_sigma,list_geoid,list_qs]).transpose()
                             if len(list_x)!=0:
                                 xsub,ysub=subsample_xy(list_x,list_y,scale_inv=scale_gtrk_inv)
                                 feature = ogr.Feature(lyr.GetLayerDefn())
