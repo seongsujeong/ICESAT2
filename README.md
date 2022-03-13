@@ -13,7 +13,7 @@ by Seongsu Jeong
     * Be a good user by spawning a reasonable number of connections to avoid overloading the server!
       * Maybe 2-3 concurrent data stream is enough.
 
-* `import_h6.py`
+* `import_h5.py`
   * Extracts x,y,z,t info, and error information from the original HDF5 files.
   * Reprojects the coordinates in .hdf5 files into desired map projection
     * provide EPSG number
